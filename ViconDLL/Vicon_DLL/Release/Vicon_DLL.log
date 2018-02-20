@@ -1,0 +1,17 @@
+﻿  pch.cpp
+  dllmain.cpp
+  Vicon_DLL.cpp
+dllmain.cpp(3): warning C4447: 'main' signature found without threading model. Consider using 'int main(Platform::Array<Platform::String^>^ args)'.
+Vicon_DLL.cpp(76): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Vicon_DLL.cpp(77): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Vicon_DLL.cpp(78): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Vicon_DLL.cpp(87): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Vicon_DLL.cpp(88): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Vicon_DLL.cpp(89): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+Vicon_DLL.cpp(90): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+     Creating library C:\Users\leimiche\source\ViconDLL\Release\Vicon_DLL\Vicon_DLL.lib and object C:\Users\leimiche\source\ViconDLL\Release\Vicon_DLL\Vicon_DLL.exp
+  Generating code
+  All 90 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Vicon_DLL.vcxproj -> C:\Users\leimiche\source\ViconDLL\Release\Vicon_DLL\Vicon_DLL.dll
+  Vicon_DLL.vcxproj -> C:\Users\leimiche\source\ViconDLL\Release\Vicon_DLL\Vicon_DLL.pdb (Full PDB)
