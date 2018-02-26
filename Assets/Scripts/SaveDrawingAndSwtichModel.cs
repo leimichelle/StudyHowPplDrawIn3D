@@ -18,14 +18,10 @@ public class SaveDrawingAndSwtichModel : MonoBehaviour, ISpeechHandler {
 	}
 
 	private void SaveDrawing() {
-		/*TODO*/
-		//Save the sketch into a object file somehow?
-		Transform sketchTransform = sketch.transform;
-		foreach (Transform child in sketchTransform) {
-            if(child.name!="PenTip") {
-                Destroy(child.gameObject);
-            }
-		}
+        /*TODO*/
+        //Save the sketch into a object file somehow?
+        MeshFilter mf = sketch.GetComponent<MeshFilter>();
+        mf.sharedMesh.Clear();
 	}
 
 	private void SwitchDisplayModel () {
