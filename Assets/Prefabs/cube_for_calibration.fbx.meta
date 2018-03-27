@@ -1,48 +1,40 @@
 fileFormatVersion: 2
-guid: 952ad66c59f3aa34d8f4e57099f57c4f
-timeCreated: 1518553282
+guid: 4c552c6c39f82574e9d082a2e3cb16cf
+timeCreated: 1520535067
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: pSphere1
-    100002: pSphere2
-    100004: pSphere3
-    100006: pSphere4
-    100008: surface_pen_4:pPipe3
-    100010: //RootNode
-    400000: pSphere1
-    400002: pSphere2
-    400004: pSphere3
-    400006: pSphere4
-    400008: surface_pen_4:pPipe3
-    400010: //RootNode
-    2100000: pSphere1Mat
-    2100002: pSphere2Mat
-    2100004: pSphere3Mat
-    2100006: pSphere4Mat
-    2100008: surface_pen_4_pPipe3Mat
-    2300000: pSphere1
-    2300002: pSphere2
-    2300004: pSphere3
-    2300006: pSphere4
-    2300008: surface_pen_4:pPipe3
-    3300000: pSphere1
-    3300002: pSphere2
-    3300004: pSphere3
-    3300006: pSphere4
-    3300008: surface_pen_4:pPipe3
-    4300000: pSphere1
-    4300002: pSphere2
-    4300004: pSphere3
-    4300006: pSphere4
-    4300008: surface_pen_4:pPipe3
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: surface_pen_4_pPipe3Mat
-    second: {fileID: 2100000, guid: 24b8db9d6ed8e2344828afb34d77f33e, type: 2}
+    100000: //RootNode
+    100002: pCube1
+    100004: pCylinder1
+    100006: pCylinder2
+    100008: pCylinder3
+    100010: pCylinder4
+    400000: //RootNode
+    400002: pCube1
+    400004: pCylinder1
+    400006: pCylinder2
+    400008: pCylinder3
+    400010: pCylinder4
+    2100000: lambert1
+    2300000: pCube1
+    2300002: pCylinder1
+    2300004: pCylinder2
+    2300006: pCylinder3
+    2300008: pCylinder4
+    3300000: pCube1
+    3300002: pCylinder1
+    3300004: pCylinder2
+    3300006: pCylinder3
+    3300008: pCylinder4
+    4300000: pCube1
+    4300002: pCylinder1
+    4300004: pCylinder2
+    4300006: pCylinder3
+    4300008: pCylinder4
+    9500000: //RootNode
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -72,7 +64,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.01
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -97,7 +89,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
@@ -116,7 +108,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

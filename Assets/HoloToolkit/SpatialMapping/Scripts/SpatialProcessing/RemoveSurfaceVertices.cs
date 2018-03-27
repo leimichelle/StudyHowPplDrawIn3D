@@ -176,7 +176,13 @@ namespace HoloToolkit.Unity.SpatialMapping
                     }
 
                     // We found vertices to remove, so now we need to remove any triangles that reference these vertices.
-                    int[] indices = mesh.GetTriangles(0);
+                    int[] indices = new int[0];
+                    try {
+                        indices = mesh.GetTriangles(0);
+                    }
+                    catch (NullReferenceException ex) {
+                        Debug.Log("myLight was not set in the inspector");
+                    }
                     List<int> updatedIndices = new List<int>();
 
                     for (int index = 0; index < indices.Length; index += 3)

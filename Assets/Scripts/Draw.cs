@@ -6,13 +6,16 @@ using HoloToolkit.Unity.InputModule;
 using static PenData;
 
 public class Draw : MonoBehaviour {
-	// Use this for initialization
-	public ButtonController b;
-	public ViconClient vc;
-	public float stroke_width = 0.0015f;
-	public Transform mouse;
+    // Use this for initialization
+    public ButtonController b;
+    public float stroke_width = 0.0015f;
+    public Transform mouse;
     public Transform PenTip;
     public int verticesPerPoint = 6;
+    public List<int> ns;
+    public List<Vector3> points;
+    public List<float> timestamps;
+    public List<Vector3> ups;
     private MeshFilter mf;
     private Mesh strokes;
     /*private bool receivedFirstPoint = false;
@@ -21,15 +24,21 @@ public class Draw : MonoBehaviour {
     private bool down = false;
     private bool up = false;
     private bool strokeInitalized = false;
-    void Awake () {
+    private int pointsInCurStroke = 0;
+    void Awake() {
         mf = GetComponent<MeshFilter>();
         strokes = new Mesh();
+        ns = new List<int>();
+        points = new List<Vector3>();
+        timestamps = new List<float>();
+        ups = new List<Vector3>();
     }
-	
-	// Update is called once per frame
+
+    // Update is called once per frame
     void Update() {
         if (b.Pressed()) {
-            if(held==false) {
+            if (held == false) {
+                //Starting a new stroke
                 down = true;
                 up = false;
             }
@@ -39,7 +48,9 @@ public class Draw : MonoBehaviour {
             held = true;
         }
         else {
-            if(held==true) {
+            if (held == true) {
+                ns.Add(pointsInCurStroke);
+                pointsInCurStroke = 0;
                 up = true;
                 down = false;
             }
@@ -48,19 +59,15 @@ public class Draw : MonoBehaviour {
             }
             held = false;
         }
-
-        if(up) {
-            Debug.Log("# of vertices: " + strokes.vertices.Length);
-            Debug.Log("# of triangles indices: " + strokes.triangles.Length); 
-        }
     }
-	void LateUpdate () {
-		if (held) {
+    void LateUpdate() {
+        if (held) {
+            AddNewPoint();
             DrawStroke();
         }
-	}
+    }
 
-	private void DrawStroke() {
+    private void DrawStroke() {
         Vector3[] vertices;
         Vector3[] normals;
         int[] triangles;
@@ -84,15 +91,15 @@ public class Draw : MonoBehaviour {
         Quaternion x_q = new Quaternion(x.x, x.y, x.z, x.w);
         Vector4 y = Matrix4x4.Rotate(PenTip.transform.rotation).GetColumn(1);
         Quaternion y_q = new Quaternion(y.x, y.y, y.z, y.w);*/
-        Vector3 bn = Matrix4x4.Rotate(PenTip.transform.localRotation).GetColumn(0);
-        Vector3 n = Matrix4x4.Rotate(PenTip.transform.localRotation).GetColumn(1);
+        Vector3 bn = Matrix4x4.Rotate(PenTip.transform.rotation).GetColumn(0);
+        Vector3 n = Matrix4x4.Rotate(PenTip.transform.rotation).GetColumn(1);
         bn = bn.normalized;
         n = n.normalized;
         float r = stroke_width / 2.0f;
 
         for (int i = 0; i < verticesPerPoint; ++i) {
             vertices[oldVerticeLength + i] =
-                PenTip.transform.localPosition +
+                PenTip.transform.position +
                 (float)Mathf.Cos(2 * Mathf.PI * (i) / verticesPerPoint) * r * bn +
                 (float)Mathf.Sin(2 * Mathf.PI * (i) / verticesPerPoint) * r * n;
             normals[oldVerticeLength + i] = (vertices[oldVerticeLength + i] - PenTip.transform.position).normalized;
@@ -103,7 +110,7 @@ public class Draw : MonoBehaviour {
         if (!down) {
             int oldTriangleLength = triangles.Length;
             Array.Resize(ref triangles, oldTriangleLength + verticesPerPoint * 6);
-            for (int quad = 0; quad<verticesPerPoint; ++quad) {
+            for (int quad = 0; quad < verticesPerPoint; ++quad) {
                 triangles[oldTriangleLength + quad * 6 + 0] = (oldVerticeLength - 6) + quad;
                 triangles[oldTriangleLength + quad * 6 + 1] = (oldVerticeLength - 6) + (quad + 1) % verticesPerPoint;
                 triangles[oldTriangleLength + quad * 6 + 2] = oldVerticeLength + quad;
@@ -117,5 +124,15 @@ public class Draw : MonoBehaviour {
         strokes.triangles = triangles;
         mf.sharedMesh = strokes;
 
+    }
+    void AddNewPoint() {
+        // We want to store information relative to the virtual object
+        Transform models = gameObject.transform.parent.Find("Models");
+        Vector3 local_position = models.InverseTransformPoint(PenTip.transform.position);
+        Vector3 local_up = models.InverseTransformVector(PenTip.transform.up);
+        points.Add(local_position);
+        ups.Add(local_up);
+        timestamps.Add(Time.time);
+        pointsInCurStroke++;
     }
 }

@@ -20,6 +20,8 @@ namespace HoloToolkit.Unity.InputModule
     {
         [Tooltip("Distance from camera to keep the object while placing it.")]
         public float DefaultGazeDistance = 2.0f;
+        public bool useCustomizedRotation = false;
+        public Vector3 initial_rotation;
 
         [Tooltip("Place parent on tap instead of current game object.")]
         public bool PlaceParentOnTap;
@@ -50,7 +52,6 @@ namespace HoloToolkit.Unity.InputModule
 
         private Dictionary<GameObject, int> layerCache = new Dictionary<GameObject, int>();
         private Vector3 PlacementPosOffset;
-
         protected virtual void Start()
         {
             if (PlaceParentOnTap)
@@ -69,6 +70,7 @@ namespace HoloToolkit.Unity.InputModule
             {
                 AttachWorldAnchor();
             }
+
         }
 
         private void OnEnable()
@@ -126,7 +128,12 @@ namespace HoloToolkit.Unity.InputModule
             interpolator.SetTargetPosition(placementPosition);
 
             // Rotate this object to face the user.
-            interpolator.SetTargetRotation(Quaternion.Euler(0, cameraTransform.localEulerAngles.y, 0));
+            if (useCustomizedRotation) {
+                interpolator.SetTargetRotation(Quaternion.Euler(0, cameraTransform.localEulerAngles.y, 0) * Quaternion.Euler(initial_rotation.x, initial_rotation.y, initial_rotation.z) );
+            }
+            else {
+                interpolator.SetTargetRotation(Quaternion.Euler(0, cameraTransform.localEulerAngles.y, 0));
+            }
         }
 
         public virtual void OnInputClicked(InputClickedEventData eventData)

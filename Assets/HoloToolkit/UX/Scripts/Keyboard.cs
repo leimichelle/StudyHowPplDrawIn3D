@@ -5,6 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using HoloToolkit.Unity;
+using HoloToolkit.Unity.InputModule;
 
 #if UNITY_WSA || UNITY_STANDALONE_WIN
 using UnityEngine.Windows.Speech;
@@ -21,8 +22,7 @@ namespace HoloToolkit.UI.Keyboard
     ///       To retrieve the input from the Keyboard, subscribe to the textEntered event. Note that
     ///       tapping 'Close' on the Keyboard will not fire the textEntered event. You must tap 'Enter' to
     ///       get the textEntered event.
-    public class Keyboard : Singleton<Keyboard>
-    {
+    public class Keyboard : Singleton<Keyboard> {
         /// <summary>
         /// Layout type enum for the type of keyboard layout to use.  
         /// This is used when spawning to enable the correct keys based on layout type.
@@ -305,6 +305,7 @@ namespace HoloToolkit.UI.Keyboard
         }
 
         #region Present Functions
+
 
         /// <summary>
         /// Present the default keyboard to the camera.
